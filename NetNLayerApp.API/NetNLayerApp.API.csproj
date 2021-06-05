@@ -8,4 +8,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NetNLayerApp.Core\NetNLayerApp.Core.csproj" />
+    <ProjectReference Include="..\NetNLayerApp.Data\NetNLayerApp.Data.csproj" />
+    <ProjectReference Include="..\NetNLayerApp.Service\NetNLayerApp.Service.csproj" />
+  </ItemGroup>
+
 </Project>
