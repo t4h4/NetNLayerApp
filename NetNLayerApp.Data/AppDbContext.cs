@@ -22,11 +22,14 @@ namespace NetNLayerApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //creating tables
             //modelBuilder.Entity<Product>().HasKey(x=>x.Id)
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 
+            //adding to tables
             modelBuilder.ApplyConfiguration(new ProductSeed(new int[] { 1, 2 }));
+            modelBuilder.ApplyConfiguration(new CategorySeed(new int[] { 1, 2 }));
         }
     }
 }
