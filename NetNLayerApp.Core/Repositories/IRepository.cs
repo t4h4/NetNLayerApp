@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetNLayerApp.Core.Repositories
 {
-    interface IRepository<TEntity> where TEntity : class //generic bir repository. where TEntity : class (TEntity mutlaka class olsun)
+    public interface IRepository<TEntity> where TEntity : class //generic bir repository. where TEntity : class (TEntity mutlaka class olsun)
     {
         Task<TEntity> GetByIdAsync(int id);
 

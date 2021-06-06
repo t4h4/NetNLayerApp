@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetNLayerApp.Core.Repositories
 {
-    interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
         Task<Product> GetWithCategoryByIdAsync(int productId); //producId'ye gore urunun kategorisi. 
     }

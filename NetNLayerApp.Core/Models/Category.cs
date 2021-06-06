@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetNLayerApp.Core.Models
 {
-    class Category
+    public class Category
     {
         public Category() //category olusturuldugunda bos bir product collection nesnesi
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetNLayerApp.Core.Services
 {
-    interface IService<TEntity> where TEntity : class //interface icerigi IRepository sinifi ile ayni
+    public interface IService<TEntity> where TEntity : class //interface icerigi IRepository sinifi ile ayni
     {
         Task<TEntity> GetByIdAsync(int id);
 
