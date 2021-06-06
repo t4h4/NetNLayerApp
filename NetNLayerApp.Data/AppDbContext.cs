@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NetNLayerApp.Core.Models;
 using NetNLayerApp.Data.Configurations;
+using NetNLayerApp.Data.Seeds;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace NetNLayerApp.Data
             //modelBuilder.Entity<Product>().HasKey(x=>x.Id)
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+
+            modelBuilder.ApplyConfiguration(new ProductSeed(new int[] { 1, 2 }));
         }
     }
 }
