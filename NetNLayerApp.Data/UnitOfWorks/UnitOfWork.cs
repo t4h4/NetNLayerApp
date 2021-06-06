@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NetNLayerApp.Data.UnitOfWorks
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
 

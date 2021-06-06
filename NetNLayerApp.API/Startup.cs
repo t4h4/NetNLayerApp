@@ -2,11 +2,15 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NetNLayerApp.Core.UnitOfWorks;
+using NetNLayerApp.Data;
+using NetNLayerApp.Data.UnitOfWorks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +30,15 @@ namespace NetNLayerApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString());
+            });
+
+            //UnitOfWork DI
+            //AddScoped request esnasinda birden fazla ihtiyac olursa ayni nesneyi kullanir ama AddTransient olursa her karsilasmada nesne uretir, performans azalir.
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); //IUnitOfWork karsilasirsa, UnitOfWork class yapisindan nesne ornegi olustur 
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
