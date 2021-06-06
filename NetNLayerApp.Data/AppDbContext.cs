@@ -21,7 +21,9 @@ namespace NetNLayerApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<Product>().HasKey(x=>x.Id)
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
         }
     }
 }
