@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace NetNLayerApp.Data.Repositories
 {
-    class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        protected readonly DbContext _context; //miras alinan yerde kullanildigi icin protected
+        private readonly DbSet<TEntity> _dbSet; //bu sinifta kullanildigi icin private
 
         public Repository(AppDbContext context)
         {
