@@ -63,5 +63,13 @@ namespace NetNLayerApp.API.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{id}/products")]
+        public async Task<IActionResult> GetWithProductsById(int id)
+        {
+            var category = await _categoryService.GetWithProductsByIdAsync(id);
+
+            return Ok(_mapper.Map<CategoryWithProductDto>(category));
+        }
     }
 }
