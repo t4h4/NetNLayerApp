@@ -8,9 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NetNLayerApp.Core.Repositories;
+using NetNLayerApp.Core.Services;
 using NetNLayerApp.Core.UnitOfWorks;
 using NetNLayerApp.Data;
+using NetNLayerApp.Data.Repositories;
 using NetNLayerApp.Data.UnitOfWorks;
+using NetNLayerApp.Service.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +34,14 @@ namespace NetNLayerApp.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DI
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IService<>), typeof(Service.Services.Service<>));
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+            //AddScoped request esnasinda birden fazla ihtiyac olursa ayni nesneyi kullanir ama AddTransient olursa her karsilasmada nesne uretir, performans azalir.
+            services.AddScoped<IUnitOfWork, UnitOfWork>(); //IUnitOfWork karsilasirsa, UnitOfWork class yapisindan nesne ornegi olustur 
+            
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString(), o =>
@@ -37,11 +49,7 @@ namespace NetNLayerApp.API
                     o.MigrationsAssembly("NetNLayerApp.Data");
                 });
             });
-
-            //UnitOfWork DI
-            //AddScoped request esnasinda birden fazla ihtiyac olursa ayni nesneyi kullanir ama AddTransient olursa her karsilasmada nesne uretir, performans azalir.
-            services.AddScoped<IUnitOfWork, UnitOfWork>(); //IUnitOfWork karsilasirsa, UnitOfWork class yapisindan nesne ornegi olustur 
-
+            
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
