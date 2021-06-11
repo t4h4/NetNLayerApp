@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetNLayerApp.API.DTOs;
+using NetNLayerApp.Core.Models;
 using NetNLayerApp.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,14 @@ namespace NetNLayerApp.API.Controllers
         {
             var category = await _categoryService.GetByIdAsync(id);
             return Ok(_mapper.Map<CategoryDto>(category));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(CategoryDto categoryDto)
+        {
+            var newCategory = await _categoryService.AddAsync(_mapper.Map<Category>(categoryDto)); //categoryDto to Category
+
+            return Created(string.Empty, _mapper.Map<CategoryDto>(newCategory)); //Created status 201 code
         }
     }
 }
