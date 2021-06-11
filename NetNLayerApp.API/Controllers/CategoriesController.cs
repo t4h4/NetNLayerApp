@@ -45,5 +45,14 @@ namespace NetNLayerApp.API.Controllers
 
             return Created(string.Empty, _mapper.Map<CategoryDto>(newCategory)); //Created status 201 code
         }
+
+        [HttpPut]
+        public IActionResult Update(CategoryDto categoryDto)
+
+        {
+            var category = _categoryService.Update(_mapper.Map<Category>(categoryDto));
+
+            return NoContent();
+        }
     }
 }
