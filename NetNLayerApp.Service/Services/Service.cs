@@ -10,10 +10,10 @@ using System.Threading.Tasks;
 
 namespace NetNLayerApp.Service.Services
 {
-    public class Service<TEntity> : IService<TEntity> where TEntity : class
+    public class Service<TEntity> : IService<TEntity> where TEntity : class //TEntity's must be class
     {
-        public readonly IUnitOfWork _unitOfWork;
-        private readonly IRepository<TEntity> _repository;
+        public readonly IUnitOfWork _unitOfWork; //public, because needed in ProductService class
+        private readonly IRepository<TEntity> _repository; //private, because it will only be used in this class
 
         public Service(IUnitOfWork unitOfWork, IRepository<TEntity> repository)
         {
@@ -63,6 +63,7 @@ namespace NetNLayerApp.Service.Services
 
         public async Task<TEntity> SingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
+            // SingleOrDefaultAsync(x=>x.price==100) - x=>x.price==100 (predicate)
             return await _repository.SingleOrDefaultAsync(predicate);
         }
 
