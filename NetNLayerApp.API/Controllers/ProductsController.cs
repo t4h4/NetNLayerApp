@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetNLayerApp.API.DTOs;
+using NetNLayerApp.Core.Models;
 using NetNLayerApp.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,31 @@ namespace NetNLayerApp.API.Controllers
             var product = await _productService.GetByIdAsync(id);
 
             return Ok(_mapper.Map<ProductDto>(product));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Save(ProductDto productDto)
+        {
+            var newproduct = await _productService.AddAsync(_mapper.Map<Product>(productDto));
+
+            return Created(string.Empty, _mapper.Map<ProductDto>(newproduct));
+        }
+
+        [HttpPut]
+        public IActionResult Update(ProductDto productDto)
+        {
+            var product = _productService.Update(_mapper.Map<Product>(productDto));
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+            var product = _productService.GetByIdAsync(id).Result;
+
+            _productService.Remove(product);
+            return NoContent();
         }
     }
 }
