@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NetNLayerApp.API.DTOs;
 using NetNLayerApp.Core.Services;
 using System;
 using System.Collections.Generic;
@@ -13,17 +15,19 @@ namespace NetNLayerApp.API.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var categories = await _categoryService.GetAllAsync();
-            return Ok(categories);
+            return Ok(_mapper.Map<IEnumerable<CategoryDto>>(categories));
         }
     }
 }
