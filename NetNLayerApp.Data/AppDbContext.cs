@@ -20,6 +20,8 @@ namespace NetNLayerApp.Data
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Person> Persons { get; set; } // Dbset
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //creating tables
@@ -30,6 +32,12 @@ namespace NetNLayerApp.Data
             //adding to tables
             modelBuilder.ApplyConfiguration(new ProductSeed(new int[] { 1, 2 }));
             modelBuilder.ApplyConfiguration(new CategorySeed(new int[] { 1, 2 }));
+
+            //other method (but best practice added with ApplyConfiguration)
+            modelBuilder.Entity<Person>().HasKey(x => x.Id);
+            modelBuilder.Entity<Person>().Property(x => x.Id).UseIdentityColumn();
+            modelBuilder.Entity<Person>().Property(x => x.Name).HasMaxLength(100);
+            modelBuilder.Entity<Person>().Property(x => x.SurName).HasMaxLength(100);
         }
     }
 }
