@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NetNLayerApp.API.DTOs;
 using NetNLayerApp.API.Filters;
 using NetNLayerApp.Core.Repositories;
 using NetNLayerApp.Core.Services;
@@ -16,6 +19,7 @@ using NetNLayerApp.Data;
 using NetNLayerApp.Data.Repositories;
 using NetNLayerApp.Data.UnitOfWorks;
 using NetNLayerApp.Service.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +86,29 @@ namespace NetNLayerApp.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NetNLayerApp.API v1"));
             }
+
+            //middleware
+            app.UseExceptionHandler(config => 
+            {
+                //hata firlatildiginda Run method ile calisilacak islemler silsilesi
+                config.Run(async context =>
+                {
+                    context.Response.StatusCode = 500; //internal server error
+                    context.Response.ContentType = "application/json";
+                    var error = context.Features.Get<IExceptionHandlerFeature>(); //catch errors
+
+                    if (error != null)
+                    {
+                        var ex = error.Error;
+
+                        ErrorDto errorDto = new ErrorDto();
+                        errorDto.Status = 500;
+                        errorDto.Errors.Add(ex.Message);
+
+                        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorDto)); //errorDto objesi, json'a donusturulup response ediliyor.
+                    }
+                });
+            });
 
             app.UseHttpsRedirection();
 

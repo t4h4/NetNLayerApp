@@ -28,6 +28,7 @@ namespace NetNLayerApp.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            //throw new Exception("Data bilgisi gelmedi.");
             var products = await _productService.GetAllAsync();
 
             return Ok(_mapper.Map<IEnumerable<ProductDto>>(products));
@@ -55,6 +56,11 @@ namespace NetNLayerApp.API.Controllers
         [HttpPut]
         public IActionResult Update(ProductDto productDto)
         {
+            //if(string.IsNullOrEmpty(productDto.Id.ToString()) || productDto.Id ==0)
+            //{
+            //    throw new Exception("Id alanı boş olamaz!");
+            //}
+
             var product = _productService.Update(_mapper.Map<Product>(productDto));
 
             return NoContent();
