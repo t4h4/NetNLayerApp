@@ -53,6 +53,13 @@ namespace NetNLayerApp.API
             
 
             services.AddControllers();
+
+            //custom filter allow
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NetNLayerApp.API", Version = "v1" });

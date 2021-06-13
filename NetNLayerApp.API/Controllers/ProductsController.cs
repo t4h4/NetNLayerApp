@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NetNLayerApp.API.DTOs;
+using NetNLayerApp.API.Filters;
 using NetNLayerApp.Core.Models;
 using NetNLayerApp.Core.Services;
 using System;
@@ -40,6 +41,7 @@ namespace NetNLayerApp.API.Controllers
             return Ok(_mapper.Map<ProductDto>(product));
         }
 
+        [ValidationFilter]
         [HttpPost]
         public async Task<IActionResult> Save(ProductDto productDto)
         {
