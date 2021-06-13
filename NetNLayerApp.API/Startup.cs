@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NetNLayerApp.API.Filters;
 using NetNLayerApp.Core.Repositories;
 using NetNLayerApp.Core.Services;
 using NetNLayerApp.Core.UnitOfWorks;
@@ -36,6 +37,7 @@ namespace NetNLayerApp.API
         {
             //DI
             services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<NotFoundFilter>(); //ctor di nesnesi aldigindan eklemek zorunlu.
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IService<>), typeof(Service.Services.Service<>));
             services.AddScoped<ICategoryService, CategoryService>();
@@ -53,6 +55,11 @@ namespace NetNLayerApp.API
             
 
             services.AddControllers();
+
+            //services.AddControllers(o =>                  
+            //{
+            //    o.Filters.Add(new ValidationFilter());                filter yapisini global duzeyde controller yapilarina yedirme.
+            //});
 
             //custom filter allow
             services.Configure<ApiBehaviorOptions>(options =>

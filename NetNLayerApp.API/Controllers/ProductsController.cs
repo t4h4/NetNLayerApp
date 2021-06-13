@@ -33,6 +33,7 @@ namespace NetNLayerApp.API.Controllers
             return Ok(_mapper.Map<IEnumerable<ProductDto>>(products));
         }
 
+        [ServiceFilter(typeof(NotFoundFilter))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -50,6 +51,7 @@ namespace NetNLayerApp.API.Controllers
             return Created(string.Empty, _mapper.Map<ProductDto>(newproduct));
         }
 
+        [ValidationFilter]
         [HttpPut]
         public IActionResult Update(ProductDto productDto)
         {
@@ -58,6 +60,7 @@ namespace NetNLayerApp.API.Controllers
             return NoContent();
         }
 
+        [ServiceFilter(typeof(NotFoundFilter))]
         [HttpDelete("{id}")]
         public IActionResult Remove(int id)
         {
@@ -67,6 +70,7 @@ namespace NetNLayerApp.API.Controllers
             return NoContent();
         }
 
+        [ServiceFilter(typeof(NotFoundFilter))]
         [HttpGet("{id}/category")]
         public async Task<IActionResult> GetWithCategoryById(int id)
         {
