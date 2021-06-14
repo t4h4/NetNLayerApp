@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetNLayerApp.Data", "NetNLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetNLayerApp.Service", "NetNLayerApp.Service\NetNLayerApp.Service.csproj", "{093DD926-96C5-4BC4-881B-8EA4C5DBD260}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetNLayerApp.Web", "NetNLayerApp.Web\NetNLayerApp.Web.csproj", "{38C75B68-C7FE-4D5F-9D79-99F6D2C7E1F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetNLayerApp.Web", "NetNLayerApp.Web\NetNLayerApp.Web.csproj", "{38C75B68-C7FE-4D5F-9D79-99F6D2C7E1F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
