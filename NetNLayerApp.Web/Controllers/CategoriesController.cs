@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NetNLayerApp.Core.Models;
 using NetNLayerApp.Core.Services;
 using NetNLayerApp.Web.DTOs;
+using NetNLayerApp.Web.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,7 @@ namespace NetNLayerApp.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [ServiceFilter(typeof(NotFoundFilter))]
         public IActionResult Delete(int id)
         {
             var category = _categoryService.GetByIdAsync(id).Result;
