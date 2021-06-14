@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using NetNLayerApp.Core.Services;
+using NetNLayerApp.Web.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,11 @@ namespace NetNLayerApp.Web.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var categories = await _categoryService.GetAllAsync();
+
+            return View(_mapper.Map<IEnumerable<CategoryDto>>(categories));
         }
     }
 }
