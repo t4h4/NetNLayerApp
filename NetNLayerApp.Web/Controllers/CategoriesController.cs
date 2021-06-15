@@ -27,6 +27,7 @@ namespace NetNLayerApp.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //var categories = await _categoryService.GetAllAsync();
             var categories = await _categoryApiService.GetAllAsync();
 
             return View(_mapper.Map<IEnumerable<CategoryDto>>(categories));
@@ -40,7 +41,8 @@ namespace NetNLayerApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryDto categoryDto)
         {
-            await _categoryService.AddAsync(_mapper.Map<Category>(categoryDto));
+            //await _categoryService.AddAsync(_mapper.Map<Category>(categoryDto));
+            await _categoryApiService.AddAsync(categoryDto);
 
             return RedirectToAction("Index");
         }

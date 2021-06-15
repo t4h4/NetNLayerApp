@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace NetNLayerApp.Web.ApiService
@@ -33,6 +34,25 @@ namespace NetNLayerApp.Web.ApiService
             }
 
             return categoryDtos;
+        }
+
+        public async Task<CategoryDto> AddAsync(CategoryDto categoryDto)
+        {
+            var stringContent = new StringContent(JsonConvert.SerializeObject(categoryDto), Encoding.UTF8, "application/json"); //nesneyi json'a donusturme
+
+            var response = await _httpClient.PostAsync("categories", stringContent); //https://localhost:44303/api/categories
+
+            if (response.IsSuccessStatusCode)
+            {
+                categoryDto = JsonConvert.DeserializeObject<CategoryDto>(await response.Content.ReadAsStringAsync()); //json datayi class'a donusturme
+
+                return categoryDto;
+            }
+            else
+            {
+                //logging
+                return null;
+            }
         }
     }
 }
