@@ -12,6 +12,7 @@ using NetNLayerApp.Data;
 using NetNLayerApp.Data.Repositories;
 using NetNLayerApp.Data.UnitOfWorks;
 using NetNLayerApp.Service.Services;
+using NetNLayerApp.Web.ApiService;
 using NetNLayerApp.Web.Filters;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,12 @@ namespace NetNLayerApp.Web
         public void ConfigureServices(IServiceCollection services)
         {
             //DI
+
+            services.AddHttpClient<CategoryApiService>(opt =>
+            {
+                opt.BaseAddress = new Uri(Configuration["baseUrl"]);
+            });
+
             services.AddScoped<NotFoundFilter>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic olduklari icin tanimlamalari typeof seklinde
