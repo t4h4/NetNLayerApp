@@ -67,11 +67,14 @@ namespace NetNLayerApp.Web.Controllers
         }
 
         [ServiceFilter(typeof(NotFoundFilter))]
-        public IActionResult Delete(int id)
+        //public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var category = _categoryService.GetByIdAsync(id).Result;
+            //var category = _categoryService.GetByIdAsync(id).Result;
 
-            _categoryService.Remove(category);
+            //_categoryService.Remove(category);
+
+            await _categoryApiService.Remove(id);
 
             return RedirectToAction("Index");
         }
