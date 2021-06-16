@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NetNLayerApp.Core.Models;
-using NetNLayerApp.Core.Services;
+//using NetNLayerApp.Core.Models;
+//using NetNLayerApp.Core.Services;
 using NetNLayerApp.Web.ApiService;
 using NetNLayerApp.Web.DTOs;
 using NetNLayerApp.Web.Filters;
@@ -14,13 +14,13 @@ namespace NetNLayerApp.Web.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ICategoryService _categoryService;
+        //private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
         private readonly CategoryApiService _categoryApiService;
 
-        public CategoriesController(ICategoryService categoryService, IMapper mapper, CategoryApiService categoryApiService)
+        public CategoriesController(IMapper mapper, CategoryApiService categoryApiService)
         {
-            _categoryService = categoryService;
+            //_categoryService = categoryService;
             _mapper = mapper;
             _categoryApiService = categoryApiService;
         }

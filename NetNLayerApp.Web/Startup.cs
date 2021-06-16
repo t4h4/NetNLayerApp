@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NetNLayerApp.Core.Repositories;
-using NetNLayerApp.Core.Services;
-using NetNLayerApp.Core.UnitOfWorks;
-using NetNLayerApp.Data;
-using NetNLayerApp.Data.Repositories;
-using NetNLayerApp.Data.UnitOfWorks;
-using NetNLayerApp.Service.Services;
+//using NetNLayerApp.Core.Repositories;
+//using NetNLayerApp.Core.Services;
+//using NetNLayerApp.Core.UnitOfWorks;
+//using NetNLayerApp.Data;
+//using NetNLayerApp.Data.Repositories;
+//using NetNLayerApp.Data.UnitOfWorks;
+//using NetNLayerApp.Service.Services;
 using NetNLayerApp.Web.ApiService;
 using NetNLayerApp.Web.Filters;
 using System;
@@ -42,20 +42,20 @@ namespace NetNLayerApp.Web
 
             services.AddScoped<NotFoundFilter>();
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic olduklari icin tanimlamalari typeof seklinde
-            services.AddScoped(typeof(IService<>), typeof(Service.Services.Service<>));
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IProductService, ProductService>();
-            //AddScoped request esnasinda birden fazla ihtiyac olursa ayni nesneyi kullanir ama AddTransient olursa her karsilasmada nesne uretir, performans azalir.
-            services.AddScoped<IUnitOfWork, UnitOfWork>(); //IUnitOfWork karsilasirsa, UnitOfWork class yapisindan nesne ornegi olustur 
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>)); //generic olduklari icin tanimlamalari typeof seklinde
+            //services.AddScoped(typeof(IService<>), typeof(Service.Services.Service<>));
+            //services.AddScoped<ICategoryService, CategoryService>();
+            //services.AddScoped<IProductService, ProductService>();
+            ////AddScoped request esnasinda birden fazla ihtiyac olursa ayni nesneyi kullanir ama AddTransient olursa her karsilasmada nesne uretir, performans azalir.
+            //services.AddScoped<IUnitOfWork, UnitOfWork>(); //IUnitOfWork karsilasirsa, UnitOfWork class yapisindan nesne ornegi olustur 
 
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString(), o =>
-                {
-                    o.MigrationsAssembly("NetNLayerApp.Data");
-                });
-            });
+            //services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString(), o =>
+            //    {
+            //        o.MigrationsAssembly("NetNLayerApp.Data");
+            //    });
+            //});
 
             services.AddControllersWithViews();
         }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using NetNLayerApp.Web.DTOs;
-using NetNLayerApp.Core.Services;
+//using NetNLayerApp.Core.Services;
+using NetNLayerApp.Web.ApiService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,22 @@ namespace NetNLayerApp.Web.Filters
 {
     public class NotFoundFilter : ActionFilterAttribute
     {
-        private readonly ICategoryService _categoryService;
+        //private readonly ICategoryService _categoryService;
+        private readonly CategoryApiService _categoryApiService;
 
-        public NotFoundFilter(ICategoryService categoryService)
+        //public NotFoundFilter(ICategoryService categoryService)
+        public NotFoundFilter(CategoryApiService categoryApiService)
         {
-            _categoryService = categoryService;
+            //_categoryService = categoryService;
+            _categoryApiService = categoryApiService;
         }
 
         public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             int id = (int)context.ActionArguments.Values.FirstOrDefault(); //public async Task<IActionResult> GetById or Remove(int id) parametre olarak gonderilen id degerini aliyor. FirstOrDefault() ise value degeri bir tane olmasi durumundandir. value yerine key kullansaydik, parametre olarak gonderilen ismi alirdik, degeri degil. 
 
-            var product = await _categoryService.GetByIdAsync(id);
+            //var product = await _categoryService.GetByIdAsync(id);
+            var product = await _categoryApiService.GetByIdAsync(id);
 
             if (product != null)
             {
